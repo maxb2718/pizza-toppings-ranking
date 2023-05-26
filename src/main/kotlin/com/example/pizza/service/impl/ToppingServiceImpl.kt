@@ -17,10 +17,12 @@ class ToppingServiceImpl(
         const val TOPPING_SCORES_ZSET = "topping_scores"
     }
 
-    override fun getAllToppings(): Iterable<ToppingScore> =
-        redisTemplate.opsForZSet().rangeWithScores(TOPPING_SCORES_ZSET, 0, -1)!!
-            .map { ToppingScore(it.value!!, it.score!!) }
-            .sortedByDescending { it.score }
+    override fun getAllToppings(): Iterable<ToppingScore> {
+        return redisTemplate.opsForZSet()
+            .rangeWithScores(TOPPING_SCORES_ZSET, 0, -1)
+            ?.map { ToppingScore(it.value ?: "", it.score ?: 0.0) }
+            ?.sortedByDescending { it.score } ?: emptyList()
+    }
 
     override fun processToppingRequest(toppingRequest: ToppingRequest) {
         val previousRequest = toppingRequestRepository.findById(toppingRequest.email)
