@@ -106,18 +106,13 @@ toppings=(
   "Fresh mint leaves"
 )
 
-function getRandomTopping() {
-  local random_index=$(( RANDOM % ${#toppings[@]} ))
-  local random_topping="${toppings[random_index]}"
-  printf "%s" "$random_topping"
-}
-
 function getRandomToppings() {
   local num_times=$(( RANDOM % 10 + 1 ))
   local toppings_list=""
 
   for (( i=1; i<=num_times; i++ )); do
-    local random_topping=$(getRandomTopping)
+    local random_index=$(( RANDOM % ${#toppings[@]} ))
+    local random_topping="${toppings[random_index]}"
     if [[ $toppings_list ]]; then
       toppings_list+=",$random_topping"
     else
