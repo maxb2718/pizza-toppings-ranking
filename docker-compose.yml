@@ -9,6 +9,12 @@ services:
     environment:
       - SPRING_DATA_REDIS_HOST=redis
       - SPRING_DATA_REDIS_PORT=6379
+  dashboard:
+    image: cv/pizza-dashboard
+    ports:
+      - "8888:80"
+    depends_on:
+      - app
   redis:
     image: "redis:latest"
     ports:

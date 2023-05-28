@@ -10,6 +10,7 @@ import java.util.*
 
 @RestController
 @RequestMapping("/toppings")
+@CrossOrigin
 class ToppingController(private val toppingService: ToppingService) {
 
     @PostMapping

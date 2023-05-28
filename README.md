@@ -49,7 +49,7 @@ cd pizza-toppings-ranking
 ```bash
 ./run.sh
 ```
-Now the application should be running at http://localhost:8080.
+Now the application should be running at http://localhost:8080 and the toppings dashboard is accessible at http://localhost:8888.
 
 ## API Endpoints
 * `POST /toppings`: Submit a new pizza topping request.

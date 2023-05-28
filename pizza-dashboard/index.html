@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pizza Toppings Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #F8F8F8;
+    }
+
+    h1 {
+      color: #383838;
+    }
+
+    .topping-score {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #FFFFFF;
+      border-radius: 5px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      transition: all 0.5s ease;
+      font-size: 18px;
+      color: #383838;
+    }
+
+    .topping-score:hover {
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+<h1>Pizza Topping Dashboard</h1>
+<div id="toppingScoresContainer" class="grid-container"></div>
+
+<script>
+    async function getToppingScores() {
+        const response = await fetch('http://localhost:8080/toppings');
+        return await response.json();
+    }
+
+    async function populateToppingScores() {
+        const container = document.getElementById('toppingScoresContainer');
+        container.innerHTML = ''; // clear existing scores
+        const toppingScores = await getToppingScores();
+
+        for (const toppingScore of toppingScores) {
+            const div = document.createElement('div');
+            div.classList.add('topping-score');
+            div.textContent = `${toppingScore.topping}: ${toppingScore.score}`;
+            container.appendChild(div);
+        }
+    }
+
+    window.onload = async function () {
+        await populateToppingScores();
+        setInterval(populateToppingScores, 3000); // refresh every N seconds
+    }
+
+</script>
+</body>
+</html>
