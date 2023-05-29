@@ -2,6 +2,8 @@
 <html>
 <head>
   <title>Pizza Toppings Dashboard</title>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -12,8 +14,16 @@
       color: #383838;
     }
 
+    #pizzaLogo {
+      position: absolute;
+      top: 5px;
+      right: 20px;
+      width: 120px;
+    }
+
     .topping-score {
-      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
       padding: 10px;
       background-color: #FFFFFF;
       border-radius: 5px;
@@ -27,45 +37,93 @@
       box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
     }
 
+    .topping-score i {
+      font-size: 14px;
+      padding: 3px;
+    }
+
+    .trend-up i {
+      background-color: #0DFD0522;
+    }
+
+    .trend-down i {
+      background-color: #FF450033;
+    }
+
     .grid-container {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 10px;
     }
   </style>
 </head>
+
 <body>
-<h1>Pizza Topping Dashboard</h1>
+<h1>Pizza Toppings Dashboard</h1>
+<img id="pizzaLogo" src="assets/pizza-logo.png" alt="Pizza Toppings Logo"/>
 <div id="toppingScoresContainer" class="grid-container"></div>
 
 <script>
+    let prevToppingScores = new Map();
+
     async function getToppingScores() {
         const response = await fetch('http://localhost:8080/toppings');
-        return await response.json();
+        let toppingsHash = new Map();
+        let toppingsResponseData = await response.json();
+        toppingsResponseData.forEach(topping => {
+            toppingsHash.set(topping.topping, topping.score);
+        });
+        return toppingsHash;
+    }
+
+    function createNoContentText() {
+        let noContentText = document.createElement('p');
+        noContentText.textContent = 'No toppings added yet.';
+        return noContentText;
+    }
+
+    function createToppingDiv(toppingName, score, prevScore) {
+        const toppingDiv = document.createElement('div');
+        toppingDiv.textContent = `${toppingName} - ${score}`;
+        toppingDiv.classList.add('topping-score');
+
+        if (prevScore === undefined || prevScore === score) {
+            return toppingDiv;
+        }
+
+        const isUpTrend = score - prevScore > 0;
+        let scoreTrend = document.createElement('i');
+        scoreTrend.classList.add('fas', isUpTrend ? 'fa-arrow-up' : 'fa-arrow-down');
+        scoreTrend.textContent = ' ' + Math.abs(score - prevScore);
+        toppingDiv.classList.add(isUpTrend ? 'trend-up' : 'trend-down');
+        toppingDiv.appendChild(scoreTrend);
+
+        return toppingDiv;
     }
 
     async function populateToppingScores() {
         const container = document.getElementById('toppingScoresContainer');
-        container.innerHTML = '';
+        const containerContent = document.createDocumentFragment();
         const toppingScores = await getToppingScores();
 
-        if (toppingScores.length === 0) {
-            container.innerHTML = 'No toppings added yet.';
+        if (toppingScores.size === 0) {
+            containerContent.appendChild(createNoContentText());
+        } else {
+            for (let [toppingName, score] of toppingScores) {
+                let prevScore = prevToppingScores.get(toppingName);
+                let toppingDiv = createToppingDiv(toppingName, score, prevScore);
+                containerContent.appendChild(toppingDiv);
+            }
         }
 
-        for (const toppingScore of toppingScores) {
-            const div = document.createElement('div');
-            div.classList.add('topping-score');
-            div.textContent = `${toppingScore.topping}: ${toppingScore.score}`;
-            container.appendChild(div);
-        }
+        prevToppingScores = toppingScores;
+        container.replaceChildren(containerContent);
     }
 
     window.onload = async function () {
         await populateToppingScores();
-        setInterval(populateToppingScores, 3000);
+        setInterval(populateToppingScores, 3_000);
     }
-
 </script>
 </body>
 </html>

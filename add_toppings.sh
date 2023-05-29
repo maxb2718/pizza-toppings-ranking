@@ -1,7 +1,8 @@
 #!/bin/bash
 
+total_requests=${1:-100000}
+total_users=${2:-200}
 url="http://localhost:8080/toppings"
-total_requests=10000
 
 toppings=(
   "Pepperoni"
@@ -124,7 +125,7 @@ function getRandomToppings() {
 }
 
 function getRandomEmail() {
-  local email="email_$((RANDOM % total_requests * 3))@somemailbox.com"
+  local email="email_$((RANDOM % total_users))@somemailbox.com"
   printf "%s" "$email"
 }
 

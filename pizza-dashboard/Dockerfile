@@ -9,3 +9,4 @@ COPY nginx.conf /etc/nginx/conf.d/
 
 # Copy the HTML file to the Nginx HTML directory
 COPY index.html /usr/share/nginx/html/
+COPY assets /usr/share/nginx/html/assets
