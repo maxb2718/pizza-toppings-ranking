@@ -1,7 +1,16 @@
 #!/bin/bash
 
+# TODO: rewrite on python?
+
+# TODO:
+#  Replace the current static total_requests and total_users arguments with a dynamic 'users per request distribution function'.
 total_requests=${1:-100000}
 total_users=${2:-200}
+# TODO:
+#  Modify the 2nd argument to be a distribution function of users/emails.
+#  Implement getEmail(distributionFuncArg) to handle this.
+# TODO: consider about toppings distribution function
+
 url="http://localhost:8080/toppings"
 
 toppings=(
@@ -128,6 +137,9 @@ function getRandomEmail() {
   local email="email_$((RANDOM % total_users))@somemailbox.com"
   printf "%s" "$email"
 }
+
+# TODO:
+#  Implement the 'getEmail(distributionFuncArg)' function
 
 function generatePayload() {
   local email=$(getRandomEmail)
