@@ -5,7 +5,7 @@
 # TODO:
 #  Replace the current static total_requests and total_users arguments with a dynamic 'users per request distribution function'.
 total_requests=${1:-100000}
-total_users=${2:-200}
+total_users=${2:-200000}
 # TODO:
 #  Modify the 2nd argument to be a distribution function of users/emails.
 #  Implement getEmail(distributionFuncArg) to handle this.
