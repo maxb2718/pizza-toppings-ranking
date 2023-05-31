@@ -1,3 +1,5 @@
+<img src="./pizza-dashboard/assets/pizza-logo.png" width="100" style="float: right;">
+
 # Pizza Toppings Ranking Application
 
 This is a Spring Boot application written in Kotlin that uses Redis to store and rank pizza toppings based on user requests. The application stores these choices in a Redis data store (configured to persist data on disk) using the ZSET data structure, which automatically ranks items based on a score. When users submit their pizza toppings preferences, the application updates the score of each topping accordingly, and retrieves the toppings sorted by their scores.
