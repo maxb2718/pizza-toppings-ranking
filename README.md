@@ -17,10 +17,16 @@ This is a Spring Boot application written in Kotlin that uses Redis to store and
 
 ## Demo
 
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/vv2QA2xnKJM/2.jpg)](http://www.youtube.com/watch?v=vv2QA2xnKJM "pizza toppings ranking - Kotlin, Spring boot, Redis ZSet, Docker compose")
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/2dRLwXHLdIU/2.jpg)](http://www.youtube.com/watch?v=2dRLwXHLdIU "pizza toppings ranking - Kotlin, Spring boot, Redis ZSet, Docker compose")
 
-https://www.youtube.com/watch?v=vv2QA2xnKJM
+https://www.youtube.com/watch?v=2dRLwXHLdIU
 
+## TODO List
+
+- [ ] :mag: Add speed parameter
+- [ ] :mag: Coins balance per user
+- [ ] :mag: Add leaderboard for coin accumulation across users
+- [ ] :mag: Add blockchain based elements distribution
 
 ## How to Run the Application
 
