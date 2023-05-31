@@ -17,6 +17,8 @@ This is a Spring Boot application written in Kotlin that uses Redis to store and
 
 ## Demo
 
+The app is live at http://143.42.18.135/. Enjoy and have fun! 🚀😎
+
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/2dRLwXHLdIU/2.jpg)](http://www.youtube.com/watch?v=2dRLwXHLdIU "pizza toppings ranking - Kotlin, Spring boot, Redis ZSet, Docker compose")
 
 https://www.youtube.com/watch?v=2dRLwXHLdIU

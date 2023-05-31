@@ -81,7 +81,8 @@
     let selectedToppings = new Set();
 
     async function getToppingScores() {
-        const response = await fetch('http://localhost:8080/toppings');
+        const toppingsUrl = `${window.location.href}toppings`
+        const response = await fetch(toppingsUrl);
         let toppingsHash = new Map();
         let toppingsResponseData = await response.json();
         toppingsResponseData.forEach(topping => {
